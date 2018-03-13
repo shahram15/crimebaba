@@ -21,8 +21,8 @@ function initMap() {
 
   // load the map
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40, lng: -100},
-    zoom: 4,
+    center: {lat: 41.3851, lng: 2.1734},
+    zoom: 14,
     styles: mapStyle
   });
 
@@ -50,7 +50,7 @@ function initMap() {
 /** Loads the state boundary polygons from a GeoJSON source. */
 function loadMapShapes() {
   // load US state outline polygons from a GeoJson file
-  map.data.loadGeoJson('states.json', { idPropertyName: 'STATE' });
+  map.data.loadGeoJson('barrios.json', { idPropertyName: 'STATE' });
 
   // wait for the request to complete by listening for the first feature to be
   // added
@@ -73,7 +73,7 @@ function loadCensusData(variable) {
   console.log(variable);
   if(variable == "https://storage.googleapis.com/mapsdevsite/json/DP02_0066PE"){
     console.log("YO WASSUP");
-    xhr.open('GET','census.json');
+    xhr.open('GET','crime.json');
   } else {
     xhr.open('GET', variable + '.json');
   }
@@ -85,9 +85,12 @@ function loadCensusData(variable) {
   xhr.onload = function() {
     var censusData = JSON.parse(xhr.responseText);
     censusData.shift(); // the first row contains column names
+
     censusData.forEach(function(row) {
       var censusVariable = parseFloat(row[0]);
+      console.log("censusVariable: " + censusVariable);
       var stateId = row[1];
+      console.log("stateId: " + stateId);
 
       // keep track of min and max values
       if (censusVariable < censusMin) {
