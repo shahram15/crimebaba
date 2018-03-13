@@ -1,0 +1,18 @@
+{
+    "name": "crimebaba",
+    "description": "crime visualisation",
+    "version": "1.0.0",
+    "main": "server.js",
+    "author": "Shahram Randeira <shahram.randeria@gmail.com>",
+    "contributors": [
+        "Matt Mondini <mattmondini@gmail.com>"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shahram15/crimebaba.git"
+    },
+    "dependencies": {
+        "express": "latest"
+    }
+}
