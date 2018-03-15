@@ -134,8 +134,10 @@ function clearCensusData() {
  * @param {google.maps.Data.Feature} feature
  */
 function styleFeature(feature) {
-  var low = [5, 69, 54];  // color of smallest datum
-  var high = [151, 83, 34];   // color of largest datum
+  var high = [5, 65, 53];  // color of smallest datum
+  var low = [92, 68, 38];
+  
+//  var low = [151, 83, 34];   // color of largest datum
 
   // delta represents where the value sits between the min and max
   var delta = (feature.getProperty('census_variable') - censusMin) /
