@@ -13,6 +13,7 @@
         "url": "https://github.com/shahram15/crimebaba.git"
     },
     "dependencies": {
-        "express": "latest"
+        "express": "latest",
+        "mongoose": "^5.0.10"
     }
 }

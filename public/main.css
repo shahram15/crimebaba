@@ -20,3 +20,36 @@ html, body {
     stroke-linejoin: round;
 }
 
+.formContainer {
+    position: absolute;
+    top: 100%;
+
+    margin-top: 15px;
+    background-color: #fff;
+    border: 1px solid #777777;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.enablerButton {
+    background-color: #444444;
+    color: #FFFFFF;
+    border: 1px solid #777777;
+    box-sizing: border-box;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.enablerButton:hover {
+    background-color: #141414;
+}
+
+.incidentForm {
+    margin-top: 10px;
+    height: 200px;
+    display: none;
+}
+
+.formContainer:hover .incidentForm{
+    display: block;
+}
