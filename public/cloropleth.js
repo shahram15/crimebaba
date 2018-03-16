@@ -37,6 +37,7 @@ function initMap() {
 
   map.data.addListener('mouseover', mouseInToRegion);
   map.data.addListener('mouseout', mouseOutOfRegion);
+  map.data.addListener('click', mouseClickToRegion);
 
   geocoder = new google.maps.Geocoder();
 
@@ -249,4 +250,24 @@ function mouseInToRegion(e) {
 function mouseOutOfRegion(e) {
   // reset the hover state, returning the border to normal
   e.feature.setProperty('state', 'normal');
+}
+
+
+
+/**
+ * Responds to the mouse-in event on a map shape (state).
+ *
+ * @param {?google.maps.MouseEvent} e
+ */
+function mouseClickToRegion(e) {
+  
+  // update the label
+  var receivedCoordinates = e.feature.getProperty('center');
+
+  console.log(receivedCoordinates);
+  var centerCoordinates = { lng: Number(receivedCoordinates[0]), lat: Number(receivedCoordinates[1])};
+  
+  map.setCenter(centerCoordinates);
+  map.setZoom(15);
+  
 }
