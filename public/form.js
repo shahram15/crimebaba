@@ -51,6 +51,7 @@ function incidentFormSubmit(event){
   var newIncident = {
     lat: document.incidentDetails.lat.value,
     lon: document.incidentDetails.lon.value,
+    address: document.incidentDetails.address.value,
     date: document.incidentDetails.date.value,
     year: document.incidentDetails.date.value,
     month: document.incidentDetails.date.value,
@@ -63,6 +64,7 @@ function incidentFormSubmit(event){
 
   var params =  "lat=" + newIncident.lat + "&" +
                 "lon=" + newIncident.lon + "&" +
+                "address=" + newIncident.address + "&" +
                 "date=" + newIncident.date + "&" +
                 "year=" + newIncident.year + "&" +
                 "month=" + newIncident.month + "&" +

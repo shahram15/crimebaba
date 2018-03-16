@@ -10,6 +10,7 @@ mongoose.connect('mongodb://rando:butterchicken1@ds113799.mlab.com:13799/crimeba
 var incidentSchema = mongoose.Schema({
   lon: String,
   lat: String,
+  address: String,
   date: String,
   year: String,
   month: String,
@@ -50,6 +51,7 @@ var server = app.listen(app.get('port'), function() {
     var sampleIncident = new Incident({
       lat: "41.381487",
       lon: "2.182197",
+      address: "Placa Catalunya",
       date: currentTime,
       year: currentTime.getYear(),
       month: currentTime.getMonth(),
@@ -84,6 +86,7 @@ app.post('/incidents',function(req,res){
   var newIncident = new Incident({
     lat: req.body.lat,
     lon: req.body.lon,
+    address: req.body.address,
     date: req.body.date,
     year: req.body.year,
     month: req.body.month,
