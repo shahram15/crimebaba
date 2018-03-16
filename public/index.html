@@ -16,6 +16,7 @@
 async defer></script>
     <!-- <script type='text/javascript' src="main.js"></script> -->
     <script type='text/javascript' src="cloropleth.js"></script>
+    <script type='text/javascript' src="form.js"></script>
 
 </head>
 
@@ -26,12 +27,19 @@ async defer></script>
     <div id="controls" class="nicebox">
         <div class="censusContainer">
             <select id="census-variable">
-                <option value="https://storage.googleapis.com/mapsdevsite/json/DP02_0066PE">Percent of population over 25 that completed high
-                school</option>
-                <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0017E">Median age</option>
-                <option value="https://storage.googleapis.com/mapsdevsite/json/DP05_0001E">Total population</option>
-                <option value="https://storage.googleapis.com/mapsdevsite/json/DP02_0016E">Average family size</option>
-                <option value="https://storage.googleapis.com/mapsdevsite/json/DP03_0088E">Per-capita income</option>
+                <option value="year">Incidents against private property in 2017</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
             </select>
         </div>
         <div id="legend">
@@ -40,11 +48,42 @@ async defer></script>
             <div id="census-max">max</div>
         </div>
         <div class="formContainer">
-            <div class="enablerButton">
+            <div class="enablerButton" onclick="formButtonHandler()">
                 log your incident
             </div>
             <div class="incidentForm">
-                form gform form
+                <form name="incidentDetails" onsubmit="incidentFormSubmit(event); return false;">
+                    Longitude: <input required type="text" name="lon" class="lonInput"><br>
+                    Latitutde: <input required type="text" name="lat" class="latInput"><br>
+                    Address: <input required type="text" name="address" class="addressInput"><br>
+                    Date: <input required type="date" name="date"><br>
+                    Time: <input required type="time" name="time"><br>
+                    Type of good stolen:
+                    <input required type="radio" class="typeOfStoleInput" name="typeofstolen" value="phone"> Phone
+                    <input required type="radio" name="typeofstolen" class="typeOfStoleInput" value="wallet"> Wallet
+                    <input required type="radio" name="typeofstolen" class="typeOfStoleInput" value="bag"> Bag
+                    <input required type="radio" name="typeofstolen" class="typeOfStoleInput" value="other"> Other<br>
+
+                    Gender:
+                    <input required type="radio" name="gender" class="genderInput" value="male"> Male
+                    <input required type="radio" name="gender" class="genderInput" value="female"> Female<br>
+
+                    Age: <input required type="number" name="age" min="1" max="124"><br><br>
+                    
+                    <input type="submit" value="Submit">
+
+                    <!-- lat: "41.381487",
+                    lon: "2.182197",
+                    date: currentTime,
+                    year: currentTime.getYear(),
+                    month: currentTime.getMonth(),
+                    time:  currentTime.getTime(),
+                    hour: currentTime.getHours(),
+                    typeOfStolen: "phone",
+                    gender: "male",
+                    age: "25" -->
+
+                </form>
             </div>
         </div>
     </div>

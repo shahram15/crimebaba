@@ -17,15 +17,20 @@ var mapStyle = [];
 var map;
 var censusMin = Number.MAX_VALUE, censusMax = -Number.MAX_VALUE;
 
+var mapOptions = {
+  center: {lat: 41.3851, lng: 2.1734},
+  zoom: 14,
+  styles: mapStyle
+};
+
+var geocoder;
+
+
+
 function initMap() {
 
   // load the map
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 41.3851, lng: 2.1734},
-    zoom: 14,
-    styles: mapStyle
-  });
-
+  map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   // set up the style rules and events for google.maps.Data
   map.data.setStyle(styleFeature);
@@ -33,14 +38,17 @@ function initMap() {
   map.data.addListener('mouseover', mouseInToRegion);
   map.data.addListener('mouseout', mouseOutOfRegion);
 
+  geocoder = new google.maps.Geocoder();
+
   // wire up the button
   var selectBox = document.getElementById('census-variable');
   google.maps.event.addDomListener(selectBox, 'change', function() {
     clearCensusData();
 
-
     loadCensusData(selectBox.options[selectBox.selectedIndex].value);
   });
+
+
 
   // state polygons only need to be loaded once, do them now
   loadMapShapes();
@@ -71,12 +79,49 @@ function loadCensusData(variable) {
 
   console.log("variable");
   console.log(variable);
-  if(variable == "https://storage.googleapis.com/mapsdevsite/json/DP02_0066PE"){
-    console.log("YO WASSUP");
-    xhr.open('GET','crime.json');
-  } else {
-    xhr.open('GET', variable + '.json');
-  }
+  if(variable == "year"){
+    console.log("loading annual data");
+    xhr.open('GET','data/year.json');
+  } if(variable == "january"){
+    console.log("loading january data");
+    xhr.open('GET','data/crime_01.json');
+  } if(variable == "february"){
+    console.log("loading february data");
+    xhr.open('GET','data/crime_02.json');
+  } if(variable == "march"){
+    console.log("loading march data");
+    xhr.open('GET','data/crime_03.json');
+  } if(variable == "april"){
+    console.log("loading april data");
+    xhr.open('GET','data/crime_04.json');
+  } if(variable == "may"){
+    console.log("loading may data");
+    xhr.open('GET','data/crime_05.json');
+  } if(variable == "june"){
+    console.log("loading june data");
+    xhr.open('GET','data/crime_06.json');
+  } if(variable == "july"){
+    console.log("loading july data");
+    xhr.open('GET','data/crime_07.json');
+  } if(variable == "august"){
+    console.log("loading august data");
+    xhr.open('GET','data/crime_08.json');
+  } if(variable == "september"){
+    console.log("loading september data");
+    xhr.open('GET','data/crime_09.json');
+  } if(variable == "october"){
+    console.log("loading october data");
+    xhr.open('GET','data/crime_10.json');
+  } if(variable == "november"){
+    console.log("loading november data");
+    xhr.open('GET','data/crime_11.json');
+  } if(variable == "december"){
+    console.log("loading december data");
+    xhr.open('GET','data/crime_12.json');
+  } 
+  // else {
+  //   xhr.open('GET', 'data/' + variable + '.json');
+  // }
     
   
   
@@ -136,6 +181,8 @@ function clearCensusData() {
 function styleFeature(feature) {
   var high = [5, 65, 53];  // color of smallest datum
   var low = [92, 68, 38];
+
+//  var low = [92, 68, 38];
   
 //  var low = [151, 83, 34];   // color of largest datum
 

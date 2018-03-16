@@ -23,7 +23,7 @@ html, body {
 .formContainer {
     position: absolute;
     top: 100%;
-
+    width: 370px;
     margin-top: 15px;
     background-color: #fff;
     border: 1px solid #777777;
@@ -50,6 +50,7 @@ html, body {
     display: none;
 }
 
-.formContainer:hover .incidentForm{
+
+.visibleForm {
     display: block;
 }

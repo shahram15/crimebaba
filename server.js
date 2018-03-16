@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var app = express();
 
+var bodyParser = require('body-parser')
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://rando:butterchicken1@ds113799.mlab.com:13799/crimebaba')
 
@@ -25,6 +27,10 @@ var Incident = mongoose.model('Incident', incidentSchema);
 // Define the port to run on
 app.set('port', 3000);
 
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Listen for requests
@@ -40,6 +46,7 @@ var server = app.listen(app.get('port'), function() {
     var currentTime = new Date();
     console.log(currentTime); 
     console.log(currentTime.getMonth()); 
+    
     var sampleIncident = new Incident({
       lat: "41.381487",
       lon: "2.182197",
@@ -59,8 +66,8 @@ var server = app.listen(app.get('port'), function() {
       } else {
         console.log("sucessfully saved");
       }
-      
     });
+
   })
 
 
@@ -69,3 +76,31 @@ var server = app.listen(app.get('port'), function() {
 
 
 
+app.post('/incidents',function(req,res){
+
+  console.log("request");
+  console.log(req.body);
+
+  var newIncident = new Incident({
+    lat: req.body.lat,
+    lon: req.body.lon,
+    date: req.body.date,
+    year: req.body.year,
+    month: req.body.month,
+    time:  req.body.time,
+    hour: req.body.hour,
+    typeOfStolen: req.body.typeOfStolen,
+    gender: req.body.gender,
+    age: req.body.age
+  });
+
+  newIncident.save(function (err, sampleIncident) {
+    if (err) {
+      return console.error(err);
+    } else {
+      console.log("sucessfully saved");
+    }
+  });
+  
+
+});
