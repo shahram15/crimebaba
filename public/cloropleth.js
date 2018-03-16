@@ -24,6 +24,7 @@ var mapOptions = {
 };
 
 var geocoder;
+var zoomLevel = 14;
 
 
 
@@ -39,6 +40,7 @@ function initMap() {
   map.data.addListener('mouseout', mouseOutOfRegion);
   map.data.addListener('click', mouseClickToRegion);
 
+
   geocoder = new google.maps.Geocoder();
 
   // wire up the button
@@ -48,6 +50,8 @@ function initMap() {
 
     loadCensusData(selectBox.options[selectBox.selectedIndex].value);
   });
+
+  google.maps.event.addListener(map, 'zoom_changed', zoomLevelChanged);
 
 
 
@@ -77,6 +81,33 @@ function loadMapShapes() {
 function loadCensusData(variable) {
   // load the requested variable from the census API (using local copies)
   var xhr = new XMLHttpRequest();
+
+  var mongoData = new XMLHttpRequest();
+  mongoData.open("GET", "/incidents");
+  
+  console.log("getting mongo data");
+  mongoData.onload = function() {
+    var incidentData = JSON.parse(mongoData.responseText);
+    console.log("incidentData");
+    console.log(incidentData);
+
+    var incidentMarker;
+
+    if(zoomLevel > 14){
+      for(var i = 0; i < incidentData.length; i++){
+        console.log("lat:" +  Number(incidentData[i].lat) + " lng:" +  Number(incidentData[i].lon))
+        incidentMarker = new google.maps.Marker({
+          position: { lat: Number(incidentData[i].lat), lng: Number(incidentData[i].lon)},
+          map: map,
+          title: ('incident#' + String(i))
+        });
+        incidentMarker.setMap(map);
+      }
+    }
+    
+    
+  }
+  mongoData.send();
 
   console.log("variable");
   console.log(variable);
@@ -270,4 +301,12 @@ function mouseClickToRegion(e) {
   map.setCenter(centerCoordinates);
   map.setZoom(15);
   
+}
+
+
+function zoomLevelChanged(){
+  zoomLevel = map.getZoom();
+  console.log(zoomLevel);
+  clearCensusData();
+  loadCensusData("year");
 }

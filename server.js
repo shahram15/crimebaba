@@ -107,3 +107,16 @@ app.post('/incidents',function(req,res){
   
 
 });
+
+
+app.get('/incidents',function(req,res){
+
+  console.log("getting all requests");
+
+  Incident.find({}, function (err, retrievedIncidents) {
+    
+    res.send(retrievedIncidents);
+  });
+  
+
+});
